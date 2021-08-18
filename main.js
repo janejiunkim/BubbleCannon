@@ -9,6 +9,8 @@ const ctx = game.getContext('2d');
 let angle = 0;
 // cannon
 let cannon;
+// all possible bubble colors
+const bubbleColors = ["pink", "powderblue","mediumpurple", "limegreen"];
 // ====================== SETUP FOR CANVAS RENDERING ======================= //
 // 2D rendering context for canvas element.
 // It is used for drawing shapes, text, images, and other objects.
@@ -45,11 +47,15 @@ class Cannon {
   }
 }
 
-class Bubble {
-    constructor(color) {
-        this.color = color;
+class Bubble { 
+    constructor() {
+        this.color = bubbleColors[randomColor()];
+
+    this.render = () => {
 
     }
+    }
+
 }
 // ====================== HELPER FUNCTIONS ======================= //
 function testPaint(x, y, width, height) {
@@ -61,6 +67,29 @@ function drawBox(x, y, size, color) {
     ctx.fillStyle = color;
     ctx.fillRect(x, y, size, size);
 }
+
+function randomColor() {
+    let min = 0;
+    let max = bubbleColors.length-1;
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+function drawCircle(ctx, x, y, radius, fill, stroke, strokeWidth) {
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, 2 * Math.PI, false);
+    if (fill) {
+        ctx.fillStyle = fill;
+        ctx.fill();
+    }
+    if (stroke) {
+        ctx.lineWidth = strokeWidth;
+        ctx.stokeStyle = stroke;
+        ctx.stroke();
+    }
+}
+// black circle with a red stroke (width 2) at coordinates 50,50, with radius 25
+// let ctx = canvas.getContext('2d')
+//drawCircle(ctx, 50, 50, 25, 'black', 'red', 2)
 
 //  KEYBOARD INTERACTION LOGIC
 
@@ -94,7 +123,7 @@ function drawCannon() {
     ctx.clearRect(0,0,50,105);
     ctx.translate(cX, cY);
     ctx.rotate(Math.PI / 180 * (angle));
-    ctx.fillRect(-(width/2), -(height/2), 50, 105);
+    ctx.fillRect(-(width/2), - (height/2), 50, 105);
 
 }
 
