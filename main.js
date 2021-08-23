@@ -66,9 +66,19 @@ class Bubble {
         drawCircle(ctx, x, y, 18, this.color, "white", 2);
     }
     
+/*
+//original shoot in bubble function 
+
     this.shoot = () => {
         this.render(currentBubbleX, currentBubbleY);
         calculateBallDirection();
+
+    }
+*/
+    this.shoot = () => {
+        this.render(currentBubbleX, currentBubbleY);
+        calculateBallDirection(currentBubbleX);
+    }
         /*
         if (currentBubbleX + dx > game.width-18 || currentBubbleX + dx < 18) {
             dx = -dx;
@@ -84,9 +94,7 @@ class Bubble {
         console.log(dx, dy);
         */
 
-    } 
-  }
-
+    }
 }
 // ====================== HELPER FUNCTIONS ======================= //
 
@@ -96,7 +104,31 @@ function randomColor() {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function calculateBallDirection(){
+function calculateBallDirection(x){
+    
+    //Cal's new code to calculate angle 
+    dx = 4 * Math.cos(Math.PI / 180 * angle - 0.5*Math.PI);
+    dy = 4 * Math.sin(Math.PI / 180 * angle - 0.5*Math.PI);
+
+    // This code bounces ball off of walls 
+    // Unfortunately, a single angle variable is being used to determine 
+    // the angle of both the cannon and the ball. 
+    // The ball needs to have its own angle parameter, which is initially set
+    // equal to the cannons but can then be changed independently 
+
+    if (x < 22) {
+        //angle = -1*angle;
+        angle = Math.abs(angle);
+        console.log(angle)
+    } else if (x > 378) {
+        angle = -1* Math.abs(angle)
+        //console.log(x)
+    }
+    
+
+    
+    //Old code to calculate angle
+    /*
     if (angle === 0) {
         dx = 0;
         dy = -4;
@@ -121,6 +153,8 @@ function calculateBallDirection(){
         currentBubbleY = dx;
         console.log("y-coord:",dy);
     } 
+    */
+
     /*
     currentBubbleX += dx;
     currentBubbleY += dy;
@@ -224,7 +258,7 @@ function stick(currentBubble, nearestBubble) {
 function printBubbles() {
     for (let i = 0; i < allBubbles.length; i++) {
         for(let j = 0; j < allBubbles[i].length; j++) {
-            console.log(allBubbles[i][j]);
+            //console.log(allBubbles[i][j]);
         }
 
     }
@@ -242,12 +276,15 @@ function printBubbles() {
  */
 
 function gameLoop () {
-    console.log("set interval");
+    // console.log("set interval");
     ctx.save();
     ctx.clearRect(0, 0, game.width, game.height);
     renderBubbles();
     printBubbles();
     cannon.currentBubble.shoot(currentBubbleX, currentBubbleY);
+
+// this way of doing it will only really ever allow a single new ball at a time 
+// 
     currentBubbleX += dx;
     currentBubbleY += dy;
     //console.log(dx, dy);
@@ -265,7 +302,7 @@ window.addEventListener("DOMContentLoaded", (e) => {
     cannon.currentBubble = new Bubble();
     //cannon.currentBubble.render(200, 507);
     createBubbleRows();
-    const runGame = setInterval(gameLoop, 100);
+    const runGame = setInterval(gameLoop, 20);
     document.addEventListener('keydown', function (event) {
         if (event.key === 'a') {
             if (angle >- 80) {
