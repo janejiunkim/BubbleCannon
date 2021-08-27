@@ -218,6 +218,7 @@ function renderBubbles(){
     }
 
 }
+/*
 function addBubbleRow() {
 
 }
@@ -313,8 +314,8 @@ window.addEventListener("DOMContentLoaded", (e) => {
     cannon.currentBubble = new Bubble(currentBubbleX, currentBubbleY);
     console.log(cannon.currentBubble);
     createBubbleRows();
-    const runGame = setInterval(gameLoop, 100);
-    updateScore();
+    const runGame = setInterval(gameLoop, 10);
+    // updateScore();
     document.addEventListener('keydown', function (event) {
         if (event.key === 'a') {
             if (angle > (-80)) {
