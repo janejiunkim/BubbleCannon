@@ -141,16 +141,12 @@ function calculateBallDirection(){
         currentBubbleX = dy;
         currentBubbleY = dx;
   
-    } 
-    
-   //cannon.currentBubble.x += dx;
-    //cannon.currentBubble.y += dy;
-    
-   //currentBubbleX -= dx;
-   // currentBubbleY += dy;
-    
-    
+    }   
 }
+//cannon.currentBubble.x += dx;
+//cannon.currentBubble.y += dy;
+//currentBubbleX -= dx;
+// currentBubbleY += dy;
 
 function drawCircle(ctx, x, y, radius, fill, stroke, strokeWidth) {
     ctx.beginPath();
