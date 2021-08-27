@@ -240,14 +240,14 @@ function updateScore() {
     }
     newScore.innerHTML = 'newScore';
 }
-
+/*
 function winOrLose() {
     for(let i=0; i < allBubbles.length; i++) {
         for(let j=0; j< allBubbles[i].length; j++) {
-            if 
         }
     }
 }
+*/
 // ====================== COLLISION DETECTION ======================= //
 function collision(b1x, b1y, r1, b2x, b2y, r2) {
     let a; 
